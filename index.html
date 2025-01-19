@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Stock de Unidades</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Gestión de Stock de Unidades</h1>
+            <button class="logout-btn">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="unit-list">
+            <div class="actions">
+                <h2>Listado de unidades</h2>
+                <a href="form_unit.html?action=add" class="btn">Agregar unidad</a>
+                <button id="downloadExcel" class="btn">Descargar Excel</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Desarrollo</th>
+                        <th>Unidad</th>
+                        <th>Dormitorios</th>
+                        <th>Producto</th>
+                        <th>Destino</th>
+                        <th>Estado</th>
+                        <th>Cliente</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="unitTableBody">
+                    <!-- Las filas se llenarán dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Pilay SA</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

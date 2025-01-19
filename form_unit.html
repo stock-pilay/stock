@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Unidad</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Formulario de Unidad</h1>
+            <button class="logout-btn">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h2>Formulario de Unidad</h2>
+            <form id="unitForm">
+                <input type="hidden" id="unitIndex">
+
+                <label for="desarrollo">Desarrollo:</label>
+                <input type="text" id="desarrollo" required>
+
+                <label for="unidad">Unidad:</label>
+                <input type="text" id="unidad" required>
+
+                <label for="dormitorios">Dormitorios:</label>
+                <input type="number" id="dormitorios" required>
+
+                <label for="producto">Producto:</label>
+                <input type="text" id="producto" required>
+
+                <label for="destino">Destino:</label>
+                <input type="text" id="destino" required>
+
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" required>
+
+                <label for="cliente">Cliente:</label>
+                <input type="text" id="cliente" required>
+
+                <button type="submit" class="btn">Guardar</button>
+            </form>
+
+            <p id="confirmationMessage" class="message success" style="display: none;">Los cambios se han guardado correctamente.</p>
+            <a href="index.html" class="btn" style="display: none;" id="backToHome">Volver al inicio</a>
+        </section>
+    </main>
+</body>
+<script src="form_script.js"></script>
+</html>
