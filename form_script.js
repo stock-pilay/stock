@@ -48,6 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const unitIndex = document.getElementById("unitIndex").value;
 
+        // Mostrar cuadro de confirmación
+        const confirmEdit = confirm("¿Estás seguro de que deseas realizar los cambios?");
+        if (!confirmEdit) {
+            return; // Cancelar la operación si el usuario no confirma
+        }
+
         if (action === "edit" && unitIndex !== null && unitIndex !== "") {
             units[unitIndex] = newUnit; // Actualizar unidad existente
         } else {
@@ -61,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
         saveToExcel();
 
         // Mostrar mensaje de confirmación
+        confirmationMessage.textContent = "Los cambios se han guardado correctamente.";
         confirmationMessage.style.display = "block";
         backToHomeBtn.style.display = "inline-block";
     });
