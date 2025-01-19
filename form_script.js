@@ -24,6 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Generar archivo Excel actualizado
+    function saveToExcel() {
+        const worksheet = XLSX.utils.json_to_sheet(units);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Unidades");
+        XLSX.writeFile(workbook, "bbdd_actualizado.xlsx");
+    }
+
     // Guardar datos (nueva unidad o edición)
     form.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -50,10 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("units", JSON.stringify(units));
 
         // Generar el archivo Excel actualizado
-        const worksheet = XLSX.utils.json_to_sheet(units);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Unidades");
-        XLSX.writeFile(workbook, "bbdd_actualizado.xlsx");
+        saveToExcel();
 
         // Mostrar mensaje de confirmación
         confirmationMessage.style.display = "block";

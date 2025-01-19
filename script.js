@@ -29,22 +29,26 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("units", JSON.stringify(units));
     }
 
+    // Generar archivo Excel actualizado
+    function saveToExcel() {
+        const worksheet = XLSX.utils.json_to_sheet(units);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Unidades");
+        XLSX.writeFile(workbook, "bbdd_actualizado.xlsx");
+    }
+
     // Eliminar una unidad
     unitTableBody.addEventListener("click", (event) => {
         if (event.target.classList.contains("delete-btn")) {
             const index = event.target.getAttribute("data-index");
             units.splice(index, 1);
             renderTable();
+            saveToExcel(); // Generar Excel después de eliminar
         }
     });
 
     // Descargar archivo Excel
-    downloadExcelBtn.addEventListener("click", () => {
-        const worksheet = XLSX.utils.json_to_sheet(units);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Unidades");
-        XLSX.writeFile(workbook, "bbdd_actualizado.xlsx");
-    });
+    downloadExcelBtn.addEventListener("click", saveToExcel);
 
     // Cargar la tabla inicial
     renderTable();
