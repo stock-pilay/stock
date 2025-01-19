@@ -8,10 +8,8 @@
 </head>
 <body>
     <header>
-        <div class="header-container">
-            <h1>Gestión de Stock de Unidades</h1>
-            <button class="logout-btn">Cerrar sesión</button>
-        </div>
+        <h1>Gestión de Stock de Unidades</h1>
+        <button class="logout-btn">Cerrar sesión</button>
     </header>
 
     <main>
@@ -35,7 +33,7 @@
                     </tr>
                 </thead>
                 <tbody id="unitTableBody">
-                    <!-- Las filas dinámicas se cargarán aquí -->
+                    <!-- Filas dinámicas se generan aquí -->
                 </tbody>
             </table>
         </section>
@@ -67,8 +65,10 @@
                 <label for="cliente">Cliente:</label>
                 <input type="text" id="cliente" required>
 
-                <button type="submit" class="btn">Guardar</button>
-                <button type="button" class="btn cancel-btn" id="cancelModal">Cancelar</button>
+                <div class="btn-group">
+                    <button type="submit" class="btn save-btn">Guardar</button>
+                    <button type="button" class="btn cancel-btn" id="cancelModal">Cancelar</button>
+                </div>
             </form>
         </div>
     </div>
