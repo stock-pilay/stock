@@ -9,18 +9,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let units = JSON.parse(localStorage.getItem("units")) || [];
 
+    // Cargar datos de la unidad si es edición
     if (action === "edit" && index !== null) {
         const unit = units[index];
-        document.getElementById("desarrollo").value = unit.Desarrollo;
-        document.getElementById("unidad").value = unit.Unidad;
-        document.getElementById("dormitorios").value = unit.Dormitorios;
-        document.getElementById("producto").value = unit.Producto;
-        document.getElementById("destino").value = unit.Destino;
-        document.getElementById("estado").value = unit.Estado;
-        document.getElementById("cliente").value = unit.Cliente;
-        document.getElementById("unitIndex").value = index;
+        if (unit) {
+            document.getElementById("desarrollo").value = unit.Desarrollo || "";
+            document.getElementById("unidad").value = unit.Unidad || "";
+            document.getElementById("dormitorios").value = unit.Dormitorios || "";
+            document.getElementById("producto").value = unit.Producto || "";
+            document.getElementById("destino").value = unit.Destino || "";
+            document.getElementById("estado").value = unit.Estado || "";
+            document.getElementById("cliente").value = unit.Cliente || "";
+            document.getElementById("unitIndex").value = index;
+        }
     }
 
+    // Guardar datos (nueva unidad o edición)
     form.addEventListener("submit", (event) => {
         event.preventDefault();
 
@@ -34,19 +38,24 @@ document.addEventListener("DOMContentLoaded", () => {
             Cliente: document.getElementById("cliente").value,
         };
 
-        if (action === "edit" && index !== null) {
-            units[index] = newUnit;
+        const unitIndex = document.getElementById("unitIndex").value;
+
+        if (action === "edit" && unitIndex !== null && unitIndex !== "") {
+            units[unitIndex] = newUnit; // Actualizar unidad existente
         } else {
-            units.push(newUnit);
+            units.push(newUnit); // Agregar nueva unidad
         }
 
+        // Guardar los datos en localStorage
         localStorage.setItem("units", JSON.stringify(units));
 
+        // Generar el archivo Excel actualizado
         const worksheet = XLSX.utils.json_to_sheet(units);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Unidades");
-        XLSX.writeFile(workbook, "bbdd.xlsx");
+        XLSX.writeFile(workbook, "bbdd_actualizado.xlsx");
 
+        // Mostrar mensaje de confirmación
         confirmationMessage.style.display = "block";
         backToHomeBtn.style.display = "inline-block";
     });

@@ -2,21 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const unitTableBody = document.getElementById("unitTableBody");
     const downloadExcelBtn = document.getElementById("downloadExcel");
 
-    let units = [];
+    let units = JSON.parse(localStorage.getItem("units")) || [];
 
-    async function loadExcel() {
-        try {
-            const response = await fetch("bbdd.xlsx");
-            const data = await response.arrayBuffer();
-            const workbook = XLSX.read(data, { type: "array" });
-            const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-            units = XLSX.utils.sheet_to_json(worksheet);
-            renderTable();
-        } catch (error) {
-            console.error("Error al cargar el archivo Excel:", error);
-        }
-    }
-
+    // Renderizar la tabla de unidades
     function renderTable() {
         unitTableBody.innerHTML = "";
         units.forEach((unit, index) => {
@@ -36,25 +24,28 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             unitTableBody.appendChild(row);
         });
+
+        // Guardar los datos en localStorage
+        localStorage.setItem("units", JSON.stringify(units));
     }
 
+    // Eliminar una unidad
     unitTableBody.addEventListener("click", (event) => {
         if (event.target.classList.contains("delete-btn")) {
             const index = event.target.getAttribute("data-index");
             units.splice(index, 1);
             renderTable();
-            saveToExcel();
         }
     });
 
-    downloadExcelBtn.addEventListener("click", saveToExcel);
-
-    function saveToExcel() {
+    // Descargar archivo Excel
+    downloadExcelBtn.addEventListener("click", () => {
         const worksheet = XLSX.utils.json_to_sheet(units);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Unidades");
-        XLSX.writeFile(workbook, "bbdd.xlsx");
-    }
+        XLSX.writeFile(workbook, "bbdd_actualizado.xlsx");
+    });
 
-    loadExcel();
+    // Cargar la tabla inicial
+    renderTable();
 });
