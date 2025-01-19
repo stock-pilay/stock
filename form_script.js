@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const form = document.getElementById("unitForm");
     const confirmationMessage = document.getElementById("confirmationMessage");
-    const backToHomeBtn = document.getElementById("backToHome");
 
     let units = JSON.parse(localStorage.getItem("units")) || [];
 
@@ -48,13 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const unitIndex = document.getElementById("unitIndex").value;
 
-        // Mostrar cuadro de confirmación
-        const confirmEdit = confirm("¿Estás seguro de que deseas realizar los cambios?");
-        if (!confirmEdit) {
-            return; // Cancelar la operación si el usuario no confirma
-        }
-
+        // Mostrar cuadro de confirmación para edición
         if (action === "edit" && unitIndex !== null && unitIndex !== "") {
+            const confirmEdit = confirm("¿Estás seguro de que deseas realizar los cambios?");
+            if (!confirmEdit) {
+                return; // Cancelar si el usuario no confirma
+            }
             units[unitIndex] = newUnit; // Actualizar unidad existente
         } else {
             units.push(newUnit); // Agregar nueva unidad
@@ -66,9 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Generar el archivo Excel actualizado
         saveToExcel();
 
-        // Mostrar mensaje de confirmación
-        confirmationMessage.textContent = "Los cambios se han guardado correctamente.";
-        confirmationMessage.style.display = "block";
-        backToHomeBtn.style.display = "inline-block";
+        // Redirigir al inicio después de guardar
+        alert("Los cambios se han guardado correctamente.");
+        window.location.href = "index.html";
     });
 });
